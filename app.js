@@ -34,7 +34,7 @@ app.use(
     saveUninitialized: false,
 
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure:'auto',
       httpOnly: true,
       maxAge: 60 * 60 * 1000,
       sameSite: 'strict',
@@ -48,6 +48,7 @@ connectDatabase()
 app.use('/blogs', require('./routes/blogsRoutes'))
 app.use('/api', require('./routes/adminRoutes'))
 app.use('/api', require('./routes/usersRoutes'))
+app.use('/messages', require('./routes/messageRoutes'))
 
 // Payment confirmation route
 app.get('/paytm', (req, res) => {

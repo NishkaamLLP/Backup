@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+  <!-- head -->
+  <%- include('./partials/head.ejs', { title: 'Add Product'}) %>
+  <body>
+    <!-- header -->
+    <%- include('./partials/header.ejs') %>
+
+    <!-- sidebar -->
+    <%- include('./partials/aside.ejs') %>
+
+    <!-- Main Content -->
+    <div class="p-4 sm:ml-64">
+      <div
+        class="p-4 border-2 border-gray-200 mt-14 border-dashed rounded-lg dark:border-gray-700"
+      >
+        <div class="container mx-auto bg-gray-300 rounded p-6">
+          <h1 class="text-4xl uppercase font-bold mb-6 text-center">
+            Add a New Product
+          </h1>
+
+          <!-- Product Form -->
+          <form
+            method="post"
+            action="/addProduct"
+            id="productForm"
+            enctype="multipart/form-data"
+            class="bg-gray-50 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <!-- Product Name -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productName"
+              >
+                Product Name
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productName"
+                type="text"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
+
+            <!-- Product Description -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productDescription"
+              >
+                Product Description
+              </label>
+              <textarea
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productDescription"
+                placeholder="Enter product description"
+                rows="6"
+                required
+              ></textarea>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productCategory"
+              >
+                Category
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productCategory"
+                required
+              >
+                <option disabled selected value="None" disabled selected>
+                  Select The Product Category
+                </option>
+
+                <option value="">Sanitary Pads</option>
+                <option value="Food Packaging">Food Packaging</option>
+                <option value="Tablewares">Tablewares</option>
+                <option value="beauty">Product Packaging</option>
+                <option value="home">Bags from Stubble</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Variants select with options -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productVariants"
+              >
+                Variants
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productVariants"
+                required
+              >
+                <option value="" disabled selected>Select a variant</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="extra-large">Extra Large</option>
+              </select>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productPrice"
+              >
+                Price ($)
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productPrice"
+                type="number"
+                placeholder="Enter product price"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <!-- Stock Quantity -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="stockQuantity"
+              >
+                Stock Quantity
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="stockQuantity"
+                type="number"
+                placeholder="Enter stock quantity"
+                required
+              />
+            </div>
+
+            <!-- Image Upload -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productImage"
+              >
+                Product Image ( Main Image)
+              </label>
+              <input
+                type="file"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productImage"
+                accept="image/*"
+                required
+              />
+            </div>
+            <!-- additioanl Images -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="productImage"
+              >
+                Additional Images ( Optional)
+              </label>
+              <input
+                type="file"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="productImage"
+                accept="image/*"
+                multiple
+                required
+              />
+            </div>
+            <!-- Submit Button -->
+            <div class="flex mt-2 items-center justify-between">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+              >
+                Add Product
+              </button>
+              <!-- cancel button -->
+              <a
+                href="/dashboard"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >Cancel</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

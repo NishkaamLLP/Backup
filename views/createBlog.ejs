@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+  <!-- head -->
+  <%- include('./partials/head.ejs', { title: 'Create Blog Page' }) %>
+
+  <body>
+    <!-- header -->
+    <%- include('./partials/header.ejs') %>
+
+    <!-- sidebar -->
+    <%- include('./partials/aside.ejs') %>
+
+    <!-- Main Content -->
+    <div class="p-4 sm:ml-64">
+      <div
+        class="p-4 border-2 border-gray-200 mt-14 border-dashed rounded-lg dark:border-gray-700"
+      >
+        <div class="container mx-auto bg-gray-300 rounded p-6">
+          <h1 class="text-4xl uppercase font-bold mb-6 text-center">
+            Create a New Blog Post
+          </h1>
+          <!-- div to display the error-->
+          <div
+            class="p-5 text-center bg-blue-100 text-red-500 font-bold text-2xl"
+          >
+            <%= response.message %>
+          </div>
+
+          <!--Blog Form -->
+          <form
+            method="post"
+            action="/blogs/"
+            enctype="multipart/form-data"
+            id="blogForm"
+            class="bg-gray-50 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <!-- Blog Title -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="title"
+              >
+                Blog Title
+              </label>
+
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="title"
+                type="text"
+                value="<%= response.blogTitle %>"
+                placeholder="Enter blog title"
+                required
+              />
+            </div>
+
+            <!-- hiddden field to  store the token from session-->
+            <input
+              type="hidden"
+              class="w-full"
+              name="token"
+              value="<%= session.token %>"
+            />
+            <!-- Blog Content -->
+            <div class="mb-4 bg-gray-200 p-2">
+              <label
+                class="block text-gray-700 text-lg text-center rounded-sm font-bold mb-2"
+                for="content"
+              >
+                Blog Content
+              </label>
+              <textarea
+                class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="content"
+                placeholder="Enter blog content"
+                rows="12"
+                value="<%= response.blogContent %>"
+                required
+              >
+              </textarea>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="category"
+              >
+                Category
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="category"
+                selected="<%= response.blogCategory %>"
+                required
+              >
+                <option value="" disabled selected>Select a category</option>
+                <option value="sustainability">Sustainability</option>
+                <option value="agriculture">Agriculture and Farming</option>
+                <option value="environment">Environmental Impact</option>
+                <option value="product-development">Product Development</option>
+                <option value="circular-economy">Circular Economy</option>
+                <option value="industry-trends">Industry Trends</option>
+                <option value="case-studies">Case Studies/Testimonials</option>
+                <option value="community-partnerships">
+                  Community and Partnerships
+                </option>
+                <option value="education-awareness">
+                  Education and Awareness
+                </option>
+                <option value="future-outlook">Future Outlook</option>
+              </select>
+            </div>
+            <!-- tags -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="tags"
+              >
+                Tags
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="tags"
+                type="text"
+                value="<%= response.blogTags %>"
+                placeholder="Enter tags separated by commas"
+                required
+              />
+            </div>
+
+            <!-- Image Upload -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="image"
+              >
+                Blog Image here (Max 2MB) -jpg, jpeg, png only.
+              </label>
+              <input
+                type="file"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="image"
+                accept="image/*"
+                required
+              />
+            </div>
+            <!-- select for publish later or now -->
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="publish"
+              >
+                Publish Blog
+              </label>
+              <select
+                id="publish"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="publish"
+                required
+                value="<%= response.publishOption %>"
+                onchange="toggleDateInput()"
+              >
+                <option disabled>Publication options</option>
+                <option value="now">Publish Now</option>
+                <option value="later">Publish Later</option>
+              </select>
+            </div>
+
+            <!-- schedule blog option -->
+            <div id="scheduleDiv" class="mb-4 hidden">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="schedule"
+              >
+                Schedule Blog
+              </label>
+              <input
+                value="<%= response.blogSchedule %>"
+                type="datetime-local"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="scheduleDate"
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex items-center justify-between">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Create Blog
+              </button>
+
+              <!-- Cancel Button -->
+              <a
+                href="/dashboard"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >Cancel</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/js/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="/js/initiator.js"></script>
+</html>

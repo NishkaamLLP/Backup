@@ -1,0 +1,10 @@
+node_modules/
+.env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.database.js
+.env.production.local
+/Controllers/payments/config.js
+
